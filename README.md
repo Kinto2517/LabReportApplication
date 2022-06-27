@@ -1,2 +1,2 @@
-# LabReportApplication
- Lab Report App with Jpa, Thymeleaf, Spring.
+# Ozgur_Yazilim_Project
+ Staj Kabul Projesi
