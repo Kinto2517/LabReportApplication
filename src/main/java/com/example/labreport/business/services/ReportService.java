@@ -3,9 +3,11 @@ package com.example.labreport.business.services;
 import com.example.labreport.business.services.impl.ReportServiceImp;
 import com.example.labreport.dao.ReportRepository;
 import com.example.labreport.model.Report;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReportService implements ReportServiceImp {
 
     private ReportRepository reportRepository;
@@ -45,14 +47,5 @@ public class ReportService implements ReportServiceImp {
         return results;
     }
 
-    @Override
-    public List<Report> orderByAsc() {
-        return null;
-    }
-
-    @Override
-    public List<Report> orderByDesc() {
-        return null;
-    }
 }
 
