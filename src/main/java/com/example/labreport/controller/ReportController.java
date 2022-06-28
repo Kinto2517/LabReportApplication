@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -27,7 +28,17 @@ public class ReportController {
 
 
 
-    @GetMapping("/reports")
+    @GetMapping("/search")
+    public String delete(@RequestParam("reportParam") String search, Model theModel)
+    {
+        List<Report> reports = reportService.searchBy(search);
+
+        theModel.addAttribute("reports", reports);
+
+        return "reports";
+    }
+
+    @GetMapping("/")
     public String reports(Model model) {
 
         List<Report> reports = reportService.findAll();
