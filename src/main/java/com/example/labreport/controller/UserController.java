@@ -2,6 +2,7 @@ package com.example.labreport.controller;
 
 import com.example.labreport.business.services.ReportService;
 import com.example.labreport.business.services.UserService;
+import com.example.labreport.model.Report;
 import com.example.labreport.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,6 +57,16 @@ public class UserController {
         userService.addUser(user);
 
         return "redirect:/users/main";
+    }
+
+    @GetMapping("/update")
+    public String update(@RequestParam("id") Long id, Model model) {
+
+        User user = userService.getUserById(id);
+
+        model.addAttribute("user", user);
+
+        return "updateUserForm";
     }
 
     @GetMapping("/delete")
