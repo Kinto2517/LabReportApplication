@@ -53,6 +53,9 @@ ReportTesting helps you test the ReportRepository and ReportService with Mockito
 
 UserTesting helps you test the UserRepository with JUnit testing.
 
+![image](https://user-images.githubusercontent.com/54002766/176395460-2efd2265-b623-4d7c-89c0-44574431be48.png)
+
+
 
 ## Style guide
 
