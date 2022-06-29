@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"
+            integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVkLH2X8VIwF7sx28G7AlTxfeIscP4Qzm"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+
+    <style>
+        table tr td:nth-child(2) {
+            background: #ccc;
+        }
+        @media (min-width: 48em) {
+            .masthead-brand {
+                float: left;
+            }
+            .nav-masthead {
+                float: right;
+            }
+        }
+    </style>
+    <title>Reports Main Table</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div>
+        <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+            <main style="margin-left: 40% " role="main" class="inner cover">
+                <h1 class="masthead-brand">Reports Page</h1>
+            </main>
+        </div>
+    </div>
+    <hr>
+
+
+    <form th:action="@{/reports/search}" class="form-inline">
+        <input class="form-control mr-sm-2 mb-3" style="width: 45%" type="search" name="reportParam" placeholder="Search by name, surname or username" />
+        <button class="btn btn-success mb-3" type="submit">Search</button>
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>File ID</th>
+            <th>Full Name</th>
+            <th>Patient TC</th>
+            <th>Title</th>
+            <th>Diagnosis Description</th>
+            <th>
+                <a th:href="@{/reports/order}">Date</a>
+            </th>
+            <th>Lab Technician Name</th>
+
+            <th>File</th>
+
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <th>Action</th>
+            </div>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="report : ${reports}">
+            <td th:text="${report.id}"/>
+            <td th:text="${report.patient_name} + ' ' + ${report.patient_surname}" />
+            <td th:text="${report.patient_tc}"/>
+            <td th:text="${report.title}"/>
+            <td th:text="${report.description}"/>
+            <td th:text="${report.date}"/>
+            <td th:text="${report.getUser().getName()}"/>
+
+            <td>
+                <a th:href="@{/reports/download(id=${report.id})}">Download</a>
+            </td>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <td>
+
+                    <a th:href="@{/reports/update(id=${report.id})}" class="btn btn-info btn-sm">Update</a>
+
+                    <a th:href="@{/reports/delete(id=${report.id})}"
+                       class="btn btn-danger btn-sm"
+                       onclick="if (!(confirm('Are you sure you want to delete this report?'))) return false ">Delete</a>
+                </td>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a th:href="@{/reports/addForm}" class="btn btn-primary btn-sm mb-3">
+           Add New Report
+        </a>
+        <a th:href="@{/users/addForm}" class="btn btn-primary ml-1 mr-3 btn-sm mb-3">
+            Add New User
+        </a>
+        <form action="#" th:action="@{/logout}"
+              method="POST">
+
+            <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
+
+        </form>
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_USER')">
+        <a th:href="@{/reports/addForm}" class="btn btn-primary btn-sm mb-3">
+            Add New Report
+        </a>
+        <form action="#" th:action="@{/logout}"
+              method="POST">
+            <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
+
+
+
