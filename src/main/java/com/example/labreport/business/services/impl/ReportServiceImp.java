@@ -8,6 +8,10 @@ public interface ReportServiceImp {
 
     List<Report> findAll();
 
+    List<Report> orderByAsc();
+
+    List<Report> orderByDesc();
+
     Report findById(Long id);
 
     void save(Report report);
