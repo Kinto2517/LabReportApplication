@@ -3,18 +3,24 @@ package com.example.labreport.model;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import net.bytebuddy.asm.Advice;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
+import org.apache.commons.io.FilenameUtils;
+
+
 
 @Entity
 @Table(name = "reports")
 @Getter
 @Setter
-@Data
 public class Report {
 
     @Id
@@ -25,7 +31,7 @@ public class Report {
     private String title;
 
     @Column(name = "date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
     private LocalDateTime date;
 
     @Column(name = "description")
@@ -34,6 +40,9 @@ public class Report {
     @Lob
     @Column(name = "report_img", columnDefinition = "BLOB")
     private byte[] report_img;
+
+    @Column(name = "extension")
+    private String extension;
 
 
     //Patient - Report
@@ -45,7 +54,7 @@ public class Report {
     private String patient_surname;
 
     @Column(name = "patient_tc")
-    private Long patient_tc;
+    private String patient_tc;
 
 
     //User - Report
@@ -54,12 +63,15 @@ public class Report {
     @NotNull(message = "Choose user for report")
     private User user;
 
-
+    public void setReport_img(MultipartFile file) throws IOException {
+        extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        this.report_img = file.getBytes();
+    }
 
     public Report() {
     }
 
-    public Report(String title, LocalDateTime date, String description, byte[] report_img, String patient_name, String patient_surname, Long patient_tc, User user) {
+    public Report(String title, LocalDateTime date, String description, byte[] report_img, String patient_name, String patient_surname, String patient_tc, User user) {
         this.title = title;
         this.date = date;
         this.description = description;
