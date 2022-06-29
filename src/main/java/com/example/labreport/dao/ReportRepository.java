@@ -9,6 +9,11 @@ import java.util.List;
 
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
+
+    List<Report> findByOrderByDateDesc();
+    List<Report> findByOrderByDateAsc();
+
+
     @Query("SELECT r FROM Report r WHERE lower(r.patient_name) like lower(concat('%',:search,'%')) "
         + "or lower(r.patient_surname) like lower(concat('%',:search,'%')) "+
         "or lower(r.user.name) like lower(concat('%',:search,'%')) "+
