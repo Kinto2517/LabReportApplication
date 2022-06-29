@@ -103,6 +103,6 @@ There is custom Spring Security Login Page.
 ### Reports Table Page
 ![image](https://user-images.githubusercontent.com/54002766/176391789-90f84fbe-e836-4c6b-a85c-506b2480f370.png)
 
-> You can order by clicking the Date table head and download the file that just uploaded.
+## You can order by clicking the Date table head and download the file that just uploaded.
 
 
