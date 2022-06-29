@@ -46,7 +46,6 @@ public class Report {
 
 
     //Patient - Report
-
     @Column(name = "patient_name")
     private String patient_name;
 
