@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin Page for Adding Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"
+            integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVkLH2X8VIwF7sx28G7AlTxfeIscP4Qzm"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Add Report Form</h2>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Let's Add Report</h4>
+            <form action="#" th:action="@{/reports/addReport}" th:object="${report}" method="post"
+                  enctype="multipart/form-data" class="needs-validation" novalidate>
+
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="title">Title</label>
+                        <input th:field="*{title}" type="text" class="form-control" id="title" placeholder="" value=""
+                               required>
+                        <div class="invalid-feedback">
+                            Valid title is required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="description">Description</label>
+                        <input th:field="*{description}" type="text" class="form-control" id="description"
+                               placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Valid description is required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="patient_name">Patient Name</label>
+                        <input th:field="*{patient_name}" type="text" class="form-control" id="patient_name"
+                               placeholder="Patient Name" value="" required>
+                        <div class="invalid-feedback">
+                            Valid patient name is required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="patient_surname">Patient Surname</label>
+                        <input th:field="*{patient_surname}" type="text" class="form-control" id="patient_surname"
+                               placeholder="Patient Surname" value="" required>
+                        <div class="invalid-feedback">
+                            Valid patient surname is required.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="patient_tc">Patient T.C.</label>
+                    <div class="input-group">
+                        <input th:field="*{patient_tc}" type="text" class="form-control" id="patient_tc"
+                               placeholder="Patient TC" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Patient T.C. is required.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="date">Date</label>
+                    <div class="input-group">
+                        <input type="datetime-local" th:field="*{date}" id="date" class="form-control mb-4 col-4"
+                               value="2015-02-02">
+
+                        <input type="button" class="btn btn-secondary btn-sml btn-block" value="Insert current date" id="button_id" />
+
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Date is required.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="file">Report Image</label>
+                    <input type="file" th:field="*{report_img}" id="file" class="form-control mb-4 col-4">
+                    <div class="invalid-feedback">
+                        Please enter your role.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-control" for="userselect">Options</label>
+                    <select class="form-select" id="userselect" th:field="*{user}">
+                        <option selected value="0" th:value="null">Select a User</option>
+                        <option th:each="user :${users}" th:value="${user.getId()}"
+                                th:text="${user.getId()} + ' ' + ${user.getName()} + ' ' + ${user.getSurname()}"></option>
+                    </select>
+                </div>
+
+                <hr class="mb-4">
+                <div th:if="${#fields.hasAnyErrors()}">
+                    <ul>
+                        <li th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
+                    </ul>
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Add Report</button>
+
+            </form>
+            <br><br>
+
+            <a th:href="@{/users/main}" class="btn btn-dark btn-m btn-block" type="submit">Users Table</a>
+            <a th:href="@{/reports/main}" class="btn btn-dark btn-m btn-block" type="submit">Reports Table</a>
+
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Kinto2517</p>
+
+    </footer>
+</div>
+
+<script>
+    var el_button = document.getElementById("button_id");
+    el_button.onclick = fillDateNow;
+
+    function fillDateNow() {
+        var today = new Date().toISOString().substring(0, 16)
+        document.getElementById("date").value = today;
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+
+</body>
+</html>
