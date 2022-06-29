@@ -120,8 +120,8 @@
             <nav class="nav nav-masthead justify-content-center">
                 <a class="nav-link active" href="/">Home</a>
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/users/main">Users</a>
-                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" href="/reports">Reports</a>
-                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/reports">Reports</a>
+                <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" href="/reports/main">Reports</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/reports/main">Reports</a>
 
             </nav>
         </div>
@@ -132,7 +132,7 @@
         <h1 sec:authorize="hasRole('ROLE_USER')" class="cover-heading">Welcome Home User.</h1>
         <p class="lead">
             <a sec:authorize="hasRole('ROLE_ADMIN')" href="/users/main" class="btn btn-lg btn-secondary">Go to Users</a>
-            <a sec:authorize="hasRole('ROLE_USER')" href="/reports" class="btn btn-lg btn-secondary">Go to Reports</a>
+            <a sec:authorize="hasRole('ROLE_USER')" href="/reports/main" class="btn btn-lg btn-secondary">Go to Reports</a>
 
         </p>
     </main>
